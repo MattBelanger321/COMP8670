@@ -1,6 +1,7 @@
 import random
 import time
 
+
 class TCPTahoe:
     def __init__(self, threshold=16, max_window=64):
         self.cwnd = 1  # Congestion window
@@ -26,18 +27,22 @@ class TCPTahoe:
         self.acks_received += 1
         if self.state == "slow_start":
             self.cwnd += 1
-            print(f"ACK received. State: Slow Start. cwnd: {self.cwnd}, ssthresh: {self.ssthresh}")
+            print(f"ACK {self.acks_received} received. State: {self.state}. cwnd: {
+                  self.cwnd}, ssthresh: {self.ssthresh}")
             if self.cwnd >= self.ssthresh:
                 self.state = "congestion_avoidance"
         elif self.state == "congestion_avoidance":
             self.cwnd += 1 / self.cwnd  # Additive increase
-            print(f"ACK received. State: Congestion Avoidance. cwnd: {self.cwnd:.2f}, ssthresh: {self.ssthresh}")
-        self.cwnd = min(self.cwnd, self.max_window)  # Ensure cwnd doesn't exceed max_window
+            print(f"ACK {self.acks_received} received. State: {self.state}. cwnd: {
+                  self.cwnd:.2f}, ssthresh: {self.ssthresh}")
+        # Ensure cwnd doesn't exceed max_window
+        self.cwnd = min(self.cwnd, self.max_window)
 
     def handle_loss(self):
         """Handles packet loss."""
         print(f"Packet loss detected! Reducing ssthresh and resetting cwnd.")
-        self.ssthresh = max(self.cwnd / 2, 2)  # Reduce ssthresh to half of cwnd
+        # Reduce ssthresh to half of cwnd
+        self.ssthresh = max(self.cwnd / 2, 2)
         self.cwnd = 1  # Reset cwnd to 1 (slow start)
         self.state = "slow_start"
 

@@ -21,17 +21,31 @@
 
 \subsubsection{What happens to cwnd during slow start?}
 
+cwnd (the congestion window) increases for each time ACK is successfully recieved until a packet is lost (ACK was not recieved)
+then cwnd goes back to its original size (2) and tries to transmit packets again. When the algorithm detects that the window size has exceeded the threshold
+then we move into congestion avoidance.
+
 \subsubsection{How does TCP Tahoe handle packet loss?}
+Tahoe reduces the slow start threshold to half the window size (or 2 in the edge case), 
+then sets the window size to 1, then returns to slow start state. The cwnd is how much data we can send without recieving and ACK,
+so in theory, reducing the window increases the rate at which we check for ACK messages slowing down hour throughput giving the communication a 
+chance to "catch back up".
 
 \subsubsection{What triggers the transition from slow start to congestion avoidance?}
+When the algorithm detects that the window size has exceeded the threshold then we move into congestion avoidance.
 
 % TASK 2
 
 \subsection{Task 2: Analyzing the Simulation Code}
 
 \subsubsection{How is cwnd growth modeled during slow start and congestion avoidance?}
+The congestion window increase by one for each successfully sent packet in slow start. 
+In congestion avoidance the window increases by the inverse of the current window size. 
+
+so the idea is that the window increase slower after it becomes larger than the threshold value.
 
 \subsubsection{What role does ssthresh play in TCP Tahoe?}
+Slow start threshold is the maximum size of the congestion window before we move from slow start to congestion avoidance.
 
 % TASK 3
 

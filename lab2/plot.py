@@ -28,7 +28,7 @@ def plot_tcp_tahoe(csv_file):
     plt.savefig(plot_file_name)
 
     # Show plot
-    plt.show()
+    # plt.show()
 
 
 def plot_all_csv_in_dir(directory):

@@ -73,7 +73,10 @@ in the long run it has no affect because after a packet is lost Tahoe overwrites
 \subsection{Task 5: Extending the Simulation}
 
 \subsubsection{How does your chosen algorithm differ from TCP Tahoe?}
+TCP Reno is similar to Tahoe but it introduces new state `fast recovery` when a duplicate sequence number is recieved 3 times.
+`fast recovery` provides a special case that allows Reno to attempt resolve the congestion without immediately tanking performance like Tahoe
 
 \subsubsection{Which algorithm performs better under high packet loss?}
+Reno performs better because the `cwnd` does not always return to two when packet loss occurs so we maintain better performance. 
 
 \end{document}

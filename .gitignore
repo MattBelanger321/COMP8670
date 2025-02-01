@@ -2,3 +2,5 @@ VM/
 
 *.log
 *.aux
+*.log
+venv/

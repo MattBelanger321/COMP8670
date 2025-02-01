@@ -52,16 +52,21 @@ Slow start threshold is the maximum size of the congestion window before we move
 \subsection{Task 3: Modifying the Simulation}
 
 \subsubsection{How does the packet loss rate affect TCP Tahoe’s performance?}
+packet loss decreases performance because Tahoe will start to send less data per message which increases overhead.
 
 \subsubsection{How does increasing the maximum congestion window size impact the simulation?}
+When packet loss is low, the maximum congestion window size caps the amount of data we can send in a single message.
+When packet loss is high, the maximum congestion window size has little affect because Tahoe will reduce the window size algorithmically when a packet is lost.
 
 % TASK 4
 
 \subsection{Task 4: Exploring Scenarios}
 
 \subsubsection{How does a higher packet loss rate affect cwnd dynamics?}
+when packet loss is low `cwnd` peaks at a larger value because Tahoe does not need to reduce the window size as frequently so `cwnd` can increase without being reset.
 
 \subsubsection{What differences do you observe when modifying ssthresh values?}
+in the long run it has no affect because after a packet is lost Tahoe overwrites it based on `cwnd`
 
 % TASK 5
 

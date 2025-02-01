@@ -46,7 +46,7 @@ class TCPTahoe:
             self.cwnd += 1
             print(f"ACK {self.acks_received} received. State: {
                   self.state}. cwnd: {self.cwnd}, ssthresh: {self.ssthresh}")
-            if self.cwnd >= self.ssthresh:
+            if self.cwnd >= self.ssthresh:  # if this is triggered we a messaging without error reliably
                 self.state = "congestion_avoidance"
         elif self.state == "congestion_avoidance":
             self.cwnd += 1 / self.cwnd  # Additive increase

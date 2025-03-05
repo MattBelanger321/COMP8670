@@ -43,6 +43,24 @@ See code \href{https://github.com/MattBelanger321/COMP8670/tree/master/lab3/task
 \subsection{\textbf{Mitigation and Report}: Discuss and implement basic mitigation strategies against ARP poisoning,
 such as static ARP entries or using ARP spoofing detection tools.}
 
+\subsubsection{Spoofing}  
+To detect and block unauthorized ARP messages, implement ARP inspection or dynamic ARP inspection mechanisms.
+
+\subsubsection{Tampering}  
+Mitigate the risks of ARP cache poisoning by using techniques such as ARP cache timeouts or static ARP entries. Additionally, deploy network-based intrusion detection systems (IDS) to monitor and alert on suspicious ARP activity.
+
+\subsubsection{Repudiation}  
+To prevent replay attacks, include sequence numbers or timestamps in ARP messages. Deploy network monitoring tools to detect and identify unusual ARP message patterns.
+
+\subsubsection{Information Disclosure}  
+To protect ARP traffic from eavesdropping, use encryption protocols like IPsec. Additionally, use network segmentation to restrict the visibility of ARP traffic to authorized devices only.
+
+\subsubsection{Denial of Service}  
+Implement rate limiting for ARP messages to avoid overwhelming network devices with excessive traffic. Also, deploy intrusion prevention systems (IPS) to detect and block ARP flood attacks.
+
+\subsubsection{Elevation of Privilege}  
+Use secure communication protocols like HTTPS or SSH to safeguard sensitive data from interception. In addition, apply network segmentation and access control measures to minimize the impact of compromised devices.
+
 \label{subsubsec:arp-mit}
 
 \section*{Report Requirements}
@@ -124,31 +142,43 @@ See Figure \ref{fig:dhcp_fsm}
 \subsection{Apply the STRIDE methodology to the FSM model of DHCP to identify potential security threats.
 For each STRIDE element, identify possible vulnerabilities in the DHCP process.}
 
-\subsubsection{Spoofing}
+\subsubsection{Spoofing}  
+In the DORA process, a malicious entity could spoof DHCP messages to impersonate a legitimate DHCP server or client. This could occur at the \textbf{DHCP Discover} and \textbf{DHCP Offer} stages, where an attacker sends a fraudulent DHCP Offer pretending to be the server. This leads clients to configure their network settings with malicious or incorrect information, potentially redirecting traffic or enabling man-in-the-middle attacks.
 
-\subsubsection{Tampering}
+\subsubsection{Tampering}  
+Tampering could occur if an attacker intercepts and alters DHCP messages during the DORA process. The most vulnerable stages are \textbf{DHCP Offer} and \textbf{DHCP Acknowledgment}, where an attacker could modify these messages to provide a malicious IP address, subnet mask, DNS server, or other settings. This could cause traffic redirection, service disruption, or exposure of sensitive information.
 
-\subsubsection{Repudiation}
+\subsubsection{Repudiation}  
+Repudiation could occur during the \textbf{DHCP Request} or \textbf{DHCP Acknowledgment} stages if there is no logging or mechanism to ensure the legitimacy of the messages. If a client or server denies receiving a message, such as a DHCP Offer or Acknowledgment, it becomes difficult to track malicious actions or resolve network issues related to IP assignment, causing confusion in troubleshooting or network management.
 
-\subsubsection{Information Disclosure}
+\subsubsection{Information Disclosure}  
+In DHCP, information disclosure could occur at any stage of the DORA process, especially during the unencrypted transmission of DHCP messages. A malicious actor could intercept DHCP Discover, Offer, or Acknowledgment messages to gain sensitive information about the network configuration, such as DNS server addresses, default gateways, or other parameters that could be used for further attacks.
 
-\subsubsection{Denial of Service}
+\subsubsection{Denial of Service}  
+A Denial of Service (DoS) attack could happen at the \textbf{DHCP Discover} stage, where an attacker floods the network with DHCP Discover messages (also known as DHCP starvation). This could exhaust the pool of available IP addresses on the server, causing legitimate clients to be unable to obtain an IP address and resulting in network downtime.
 
-\subsubsection{Elevation of Privilege}
+\subsubsection{Elevation of Privilege}  
+An attacker could exploit vulnerabilities in the DHCP process to elevate privileges by impersonating a legitimate device during the \textbf{DHCP Discover} or \textbf{DHCP Request} stages. By tricking the DHCP server into assigning an IP address and network configuration to a compromised device, an attacker could gain unauthorized access to restricted networks or sensitive systems, thus escalating privileges within the network.
 
-\subsection{Propose mitigation strategies for each identified vulnerability. This could involve protocol enhance-
-ments, configuration changes, or additional security mechanisms.}
+\subsection{Propose mitigation strategies for each identified vulnerability. This could involve protocol enhancements, configuration changes, or additional security mechanisms.}
 
-\subsubsection{Spoofing}
+\subsubsection{Spoofing}  
+To mitigate spoofing in the DORA process, implement DHCP authentication mechanisms such as DHCP Secure (DHCP-S) or use cryptographic techniques like digital signatures to verify the legitimacy of DHCP messages. Additionally, network devices can be configured to only accept DHCP offers from trusted servers. Using static IP assignments for critical devices and employing port security in switches to restrict DHCP responses can also reduce the risk of spoofing.
 
-\subsubsection{Tampering}
+\subsubsection{Tampering}  
+Tampering can be mitigated by encrypting DHCP messages to prevent unauthorized modifications. Protocols like IPsec or DHCP over TLS can be employed to ensure integrity and confidentiality of messages between DHCP clients and servers. Additionally, using secure communication channels for DHCP transactions and implementing message authentication codes (MACs) can help detect and prevent tampered messages.
 
-\subsubsection{Repudiation}
+\subsubsection{Repudiation}  
+To prevent repudiation, ensure proper logging and auditing of DHCP transactions at every stage of the DORA process. Logs should include detailed information about requests, offers, and acknowledgments, including timestamps and unique identifiers. Implementing a secure logging system and using non-repudiation techniques, such as digital signatures, can also help ensure that no entity can deny having participated in the DHCP process.
 
-\subsubsection{Information Disclosure}
+\subsubsection{Information Disclosure}  
+To mitigate information disclosure, DHCP messages should be encrypted using IPsec or another secure transport protocol. This prevents attackers from eavesdropping on network configuration details such as DNS servers and gateways. Network segmentation and using VLANs to restrict the scope of DHCP traffic to only authorized devices can also limit exposure to sensitive information.
 
-\subsubsection{Denial of Service}
+\subsubsection{Denial of Service}  
+To prevent DoS attacks, implement rate-limiting on DHCP requests to prevent excessive message flooding. Use DHCP snooping to ensure that only legitimate DHCP servers are allowed to issue offers to clients. Additionally, configuring the DHCP server to handle requests efficiently and implementing redundant DHCP servers can help prevent service disruption. Intrusion Prevention Systems (IPS) can also be used to detect and block DoS attempts targeting the DHCP process.
 
-\subsubsection{Elevation of Privilege}
+\subsubsection{Elevation of Privilege}  
+To mitigate elevation of privilege, secure communication between DHCP clients and servers with encryption and strong authentication mechanisms. Implement network access control to restrict access to DHCP servers and sensitive network resources. Furthermore, the use of port security on switches and dynamic IP address filtering can prevent unauthorized devices from connecting to the network and obtaining IP addresses from the DHCP server.
+
 
 \end{document}

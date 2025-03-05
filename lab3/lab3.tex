@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-
+\usepackage{hyperref}
 
 \title{Lab 03- ARP Poisoning and DHCP Security}
 \author{Matthew Belanger}
@@ -18,14 +18,79 @@
 % TASK 1
 
 \section{Task 1: ARP Poisoning Attack}
+\label{sec:task1}
 
-\subsection{Network configurations and ARP tables before and after the attack.}
+\section*{Tasks}
 
-\subsection{Scapy scripts used.}
+\subsection{\textbf{Environment Setup}: Create a simple network with two virtual machines (VM1 and VM2) connected
+through a virtual switch or host-only network. Ensure both VMs can ping each other, confirming
+network connectivity.}
 
-\subsection{Screenshots demonstrating the success of the attack, including Wireshark captures.}
+See Figure \ref{fig:connected}
 
-\subsection{Discussion on mitigation strategies.}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/connected.png}
+    \caption{VMs Connected}
+    \label{fig:connected}
+\end{figure}
+
+
+\subsection{\textbf{ARP Security Testing}: Write a script using Scapy to perform ARP security testing (pentesting), follow the STRIDE methodology we applied in the class to test and verify the identified vulnerabilities.}
+
+See code \href{https://github.com/MattBelanger321/COMP8670/tree/master/lab3/task1}{Repo}
+
+\subsection{\textbf{Mitigation and Report}: Discuss and implement basic mitigation strategies against ARP poisoning,
+such as static ARP entries or using ARP spoofing detection tools.}
+
+\label{subsubsec:arp-mit}
+
+\section*{Report Requirements}
+
+\subsection*{Network configurations and ARP tables before and after the attack.}
+
+\subsubsection*{Before}
+
+See Figure \ref{fig:before}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/before.png}
+    \caption{VMs Connected}
+    \label{fig:before}
+\end{figure}
+
+\subsubsection*{After}
+
+See Figure \ref{fig:after}
+
+I am pretending to be the DHCP server here. You can see the ARP table has two IPs with the same MAC. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/poison.png}
+    \caption{Poisoning Screenshot}
+    \label{fig:after}
+\end{figure}
+
+\subsection*{Scapy scripts used.}
+
+See code \href{https://github.com/MattBelanger321/COMP8670/tree/master/lab3/task1}{Repo}
+
+\subsection*{Screenshots demonstrating the success of the attack, including Wireshark captures.}
+
+In figure \ref{fig:wireshark-proof} I pretend to be the DHCP server at 192.168.56.2 (actual IP 192.168.56.4). On the victim machine I ping the DHCP server but the packets are recieved on hackers machine.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/wireshark_spoof_proof.png}
+    \caption{Wireshark Spoof}
+    \label{fig:wireshark-proof}
+\end{figure}
+
+\subsection*{Discussion on mitigation strategies.}
+
+See section \ref{subsubsec:arp-mit}
 
 \newpage
 

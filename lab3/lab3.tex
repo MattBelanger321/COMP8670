@@ -64,10 +64,12 @@ See Figure \ref{fig:before}
 
 See Figure \ref{fig:after}
 
+I am pretending to be the DHCP server here. You can see the ARP table has two IPs with the same MAC. 
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{task1/screenshot/before.png}
-    \caption{VMs Connected}
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/poison.png}
+    \caption{Poisoning Screenshot}
     \label{fig:after}
 \end{figure}
 
@@ -76,6 +78,15 @@ See Figure \ref{fig:after}
 See code \href{https://github.com/MattBelanger321/COMP8670/tree/master/lab3/task1}{Repo}
 
 \subsection*{Screenshots demonstrating the success of the attack, including Wireshark captures.}
+
+In figure \ref{fig:wireshark-proof} I pretend to be the DHCP server at 192.168.56.2 (actual IP 192.168.56.4). On the victim machine I ping the DHCP server but the packets are recieved on hackers machine.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{task1/screenshot/wireshark_spoof_proof.png}
+    \caption{Wireshark Spoof}
+    \label{fig:wireshark-proof}
+\end{figure}
 
 \subsection*{Discussion on mitigation strategies.}
 

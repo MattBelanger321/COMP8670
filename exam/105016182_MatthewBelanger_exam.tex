@@ -15,11 +15,38 @@
 
 \subsection{Can Attila arrange to learn the contents of Vicky’s document without physically
 accessing any of the printers?}
+	\label{subsec:learn_contents}
 
+	Yes Attila can learn the contents of Vicky's documents using a man in the middle attack 
+	(assuming they are on the same network). This is possible due to two features of the protocol.
+	\begin{enumerate}
+		\item Attila can learn the IP addresses of all the printers on 
+			the network and forward any packets recieved to the victim's requested printer. 
+			This is possible due to the \textbf{Printer Discovery packets} and the \textbf{Printer Announcement packets}.
+		\item Attila can recieve Vicky's print requests due to how the non-priter machines handle \textbf{Printer Announcement packets}. 
+			Since \textbf{Printer Discovery packets} are broadcasted to the entire network, Attila will know when Vicky is looking for printers.
+			Attila knows all the printers on the network and is able to wait a short while so the Vicky will recieve the legitiment printer data and then Attila can spoof
+			additional \textbf{Printer Discovery packets} by claiming to be a printer with the same name as the actual printer,
+			and when Vicky receives this new data her machine will override the entry due to the protocol specification.
+	\end{enumerate}
+	Due to these two possibillities, Attila can itercept Vicky's packets by pretending to be the printer and forward them to the printer and Vicky will not know the
+	difference but Attila can save a copy of the sensitive data. In short, Attila learns all the names of the printers on the network, waits for discovery 
+	requests and then retransmits \textbf{Printer Announcement packets} with her IP addresses but the requested printers names so that the host machines log 
+	her IP as each printer on the network.
 \subsection{Describe two distinct Denial-of-Service (DoS) attacks that Attila could execute
 against the Printer Discovery Protocol.}
+	Attila can,
+	\begin{enumerate}
+		\item \underline{send high volumes of \textbf{Printer Discovery packets}}, so that the printers will be unable to service legitiment
+		discovery requests due to being overloaded with Attila's bogus requests.
+		\item \underline{send high volumes of \textbf{Printer Announcement packets}}, so that the client machines will unable to register legitiment 
+		printers requests due to being overloaded with Attila's bogus announcements.
+	\end{enumerate}
 
 \subsection{Can Attila modify what is printed on the printer?}
+	Yes Attila can. See my response in section \ref{subsec:learn_contents}. Note that in the method I described, the 
+	original document Vicky sends will never reach the destination printer, it is a copy that Attila forwards than reaches the printer.
+	Attila can very easily swap out the document instead of forwarding a copy.
 
 \section{Problem 2 - Hilltop Academy IT Security}
 \label{sec:hilltop}
@@ -92,15 +119,15 @@ window size will change, and the packets sent in each window.}
 actual RTT for packets 2, 5, 9, 13 as shown in table 2. Calculate the estimated RTT for
 packet number 14.}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{ccccc}
-        \textbf{Packet \#} & 2  & 5  & 9  & 13 \\
-        \textbf{RTT (ms)}  & 21 & 19 & 24 & 22 \\
-    \end{tabular}
-    \caption{Round-Trip Time (RTT) for Different Packets}
-    \label{tab:rtt_data}
-\end{table}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccccc}
+			\textbf{Packet \#} & 2  & 5  & 9  & 13 \\
+			\textbf{RTT (ms)}  & 21 & 19 & 24 & 22 \\
+		\end{tabular}
+		\caption{Round-Trip Time (RTT) for Different Packets}
+		\label{tab:rtt_data}
+	\end{table}
 
 \section{Problem 6 - TimeSync Protocol}
 

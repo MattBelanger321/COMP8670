@@ -53,6 +53,9 @@ against the Printer Discovery Protocol.}
 
 \subsection{What would be the source IP address and the MAC address in the ICMP
 Redirect message sent by Leo’s Laptop to the Teacher’s Workstation?}
+	Since Leo is trying to spoof the router, the IP address would need to be the gateways router so that the teacher's
+	machine will believe the router is sending the information, but since Leo is the machine physically 
+	sending the packet to the teacher, it would need to be Leo's MAC address because ICMP is a network layer protocol.
 
 \subsection{After receiving the ICMP Redirect message, what changes occur in the routing
 table of the Teacher’s Workstation?}

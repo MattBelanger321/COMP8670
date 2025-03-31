@@ -25,7 +25,7 @@ accessing any of the printers?}
 			This is possible due to the \textbf{Printer Discovery packets} and the \textbf{Printer Announcement packets}.
 		\item Attila can recieve Vicky's print requests due to how the non-priter machines handle \textbf{Printer Announcement packets}. 
 			Since \textbf{Printer Discovery packets} are broadcasted to the entire network, Attila will know when Vicky is looking for printers.
-			Attila knows all the printers on the network and is able to wait a short while so the Vicky will recieve the legitiment printer data and then Attila can spoof
+			Attila knows all the printers on the network and is able to wait a short while so the Vicky will recieve the legitimate printer data and then Attila can spoof
 			additional \textbf{Printer Discovery packets} by claiming to be a printer with the same name as the actual printer,
 			and when Vicky receives this new data her machine will override the entry due to the protocol specification.
 	\end{enumerate}
@@ -37,9 +37,9 @@ accessing any of the printers?}
 against the Printer Discovery Protocol.}
 	Attila can,
 	\begin{enumerate}
-		\item \underline{send high volumes of \textbf{Printer Discovery packets}}, so that the printers will be unable to service legitiment
+		\item \underline{send high volumes of \textbf{Printer Discovery packets}}, so that the printers will be unable to service legitimate
 		discovery requests due to being overloaded with Attila's bogus requests.
-		\item \underline{send high volumes of \textbf{Printer Announcement packets}}, so that the client machines will unable to register legitiment 
+		\item \underline{send high volumes of \textbf{Printer Announcement packets}}, so that the client machines will unable to register legitimate 
 		printers requests due to being overloaded with Attila's bogus announcements.
 	\end{enumerate}
 

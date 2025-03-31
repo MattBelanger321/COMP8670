@@ -11,4 +11,120 @@
 
 \maketitle
 
+\section{Problem 1 - Printer Attack}
+
+\subsection{Can Attila arrange to learn the contents of Vicky’s document without physically
+accessing any of the printers?}
+
+\subsection{Describe two distinct Denial-of-Service (DoS) attacks that Attila could execute
+against the Printer Discovery Protocol.}
+
+\subsection{Can Attila modify what is printed on the printer?}
+
+\section{Problem 2 - Hilltop Academy IT Security}
+\label{sec:hilltop}
+
+\subsection{What would be the source IP address and the MAC address in the ICMP
+Redirect message sent by Leo’s Laptop to the Teacher’s Workstation?}
+
+\subsection{After receiving the ICMP Redirect message, what changes occur in the routing
+table of the Teacher’s Workstation?}
+
+\subsection{Indicate the new route (including the next-hop IP address) that the Teacher’s
+Workstation will use to send packets intended for the Internal Web Service Server after
+the ICMP Redirect attack is successful.}
+
+\subsection{What should be the content of the ICMP Redirect message to make sure the
+Teacher’s Workstation routes the traffic as intended by Leo?}
+
+\subsection{If Eva notices unusual network activity and investigates the traffic coming to
+and from the Teacher’s Workstation, identify the signs that would indicate an ICMP
+Redirect attack is taking place.}
+
+\section{Problem 3 - Python From Section \ref{sec:hilltop}}
+
+See Python Implementation.
+
+\section{Problem 4 - Link-State and Distance-Vector Routing}
+
+\subsection{Assume we are using Link-State routing for the network in figure  ”Network
+Topology A”. Is it possible to for oscillation problem to occur.}
+
+\subsection{Assume we are using Distance-Vector routing for the network in figure ”Net-
+work Topology A”. Is it possible to for a routing loop problem to occur.}
+
+\subsection{Assume we are using Link-State routing for the network in figure ”Network
+Topology B”. Is it possible to for oscillation problem to occur.}
+
+\subsection{Assume we are using Distance-Vector routing for the network in figure ”Net-
+work Topology B”.}
+
+\section{Problem 5 - Congestion Control}
+
+\subsection{Show for sending 15 different packets (duplicate packets do not count), how the
+window size will change, and the packets sent in each window.}
+
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{cc}
+			Window Size & Packets Sent \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+			- & - \\
+		\end{tabular}
+		\caption{Window Size vs. Packets Sent}
+		\label{tab:window_packets}
+	\end{table}
+
+\subsection{Assume that we set the initial estimated RTT to 20 ms and we measured the
+actual RTT for packets 2, 5, 9, 13 as shown in table 2. Calculate the estimated RTT for
+packet number 14.}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ccccc}
+        \textbf{Packet \#} & 2  & 5  & 9  & 13 \\
+        \textbf{RTT (ms)}  & 21 & 19 & 24 & 22 \\
+    \end{tabular}
+    \caption{Round-Trip Time (RTT) for Different Packets}
+    \label{tab:rtt_data}
+\end{table}
+
+\section{Problem 6 - TimeSync Protocol}
+
+\subsection{Define the message format for both time synchronization requests and responses
+in your protocol.}
+
+\subsection{Sketch a timeline for the operation of your protocol in case of a simple time
+synchronization request and response with no error, and in case there is one error (e.g.
+time drift greater than 30 seconds)}
+
+\section{Problem 7 - RDT Protocol}
+
+\subsection{Draw a time chart for the packets between A and B, showing the number of
+data and acknowledgment packets exchanged between A and B. When B received the
+message ”CAT” correctly, there was no crash or time failure.}
+
+\subsection{Draw a time chart for the packets between A and B, showing the number of
+data and acknowledgment packets between A and B. When B only receives the message
+”CA” and not ”CAT” due to time failure. A and B will fail to detect that the message
+was sent incorrectly and terminate the connection.}
+
+\subsection{Draw a time chart for the packets between A and B, showing the number of
+data and acknowledgment packets between A and B. B only receives the message ”CATC”
+and not ”CAT” due to time failure. A and B will fail to detect that the message was sent
+incorrectly and terminate the connection.}
+
 \end{document}

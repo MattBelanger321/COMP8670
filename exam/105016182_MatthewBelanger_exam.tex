@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 
 \title{COMP 8670 - Take Home Exam}
@@ -51,25 +52,54 @@ against the Printer Discovery Protocol.}
 \section{Problem 2 - Hilltop Academy IT Security}
 \label{sec:hilltop}
 
+For reference, the following IP addresses are assigned based on the Hilltop Academy scenario:
+
+\begin{align*}
+    \text{Legitimate Gateway} &: \texttt{192.168.50.1} \\
+    \text{Attacker (Leo)} &: \texttt{192.168.50.30} \\
+    \text{Victim (Teacher)} &: \texttt{192.168.50.40} \\
+    \text{Target (Internal Service)} &: \texttt{192.168.70.10}
+\end{align*}
+
 \subsection{What would be the source IP address and the MAC address in the ICMP
 Redirect message sent by Leo’s Laptop to the Teacher’s Workstation?}
 	Since Leo is trying to spoof the router, the IP address would need to be the gateways router so that the teacher's
-	machine will believe the router is sending the information, but since Leo is the machine physically 
-	sending the packet to the teacher, it would need to be Leo's MAC address because ICMP is a network layer protocol.
+	machine will believe the router is sending the information, but since Leo's the machine is physically 
+	sending the packet to the teacher, it would need to be Leo's MAC address because ICMP is above the DataLink layer.
 
 \subsection{After receiving the ICMP Redirect message, what changes occur in the routing
 table of the Teacher’s Workstation?}
+	The teacher will have their table updated such that it will believe that the most efficient route to get to the target machine
+	will be to go to the attackers machine first.
 
 \subsection{Indicate the new route (including the next-hop IP address) that the Teacher’s
 Workstation will use to send packets intended for the Internal Web Service Server after
 the ICMP Redirect attack is successful.}
+	The route will begin at the source, the Teachers IP (192.168.50.40), then the Attackers IP (next hop, 192.168.50.30), then it will be the route
+	to get from the attacker to the legitimate gateway and finally Internal Web Service Server 192.168.70.10.
+
+	\[
+		\text{Teacher} \xrightarrow{} \text{Leo} \xrightarrow{} \text{Gateway} \xrightarrow{} \text{Target}
+	\]
 
 \subsection{What should be the content of the ICMP Redirect message to make sure the
 Teacher’s Workstation routes the traffic as intended by Leo?}
+	Leo wants to just inspect the data and pass it along because Leo is not malicious. The outer message should be an IP message between
+	him and the Teacher, with a redirect ICMP packet at the next layer that claims Leo is the optimal next jump. The next layer should be another IP message with
+	the original information which is between the Teacher and the Target. See the Python implementation.
 
 \subsection{If Eva notices unusual network activity and investigates the traffic coming to
 and from the Teacher’s Workstation, identify the signs that would indicate an ICMP
 Redirect attack is taking place.}
+
+	Eva has not been redirected so she can ping the Teacher the "legitimate" way. Since she is on the same subnet as the Teacher she can monitor the route
+	and see that the optimaml route to the target is:
+	
+	\[
+		\text{Her} \xrightarrow{} \text{Gateway} \xrightarrow{} \text{Target}
+	\]
+	Leo's IP does not exist in the route, but the Teachers packet goes through Leo.
+	This is evidence that some tampering has occured.
 
 \section{Problem 3 - Python From Section \ref{sec:hilltop}}
 

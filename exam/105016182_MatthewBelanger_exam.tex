@@ -128,21 +128,13 @@ window size will change, and the packets sent in each window.}
 		\centering
 		\begin{tabular}{cc}
 			Window Size & Packets Sent \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
-			- & - \\
+			1 & 1 \\
+			2 & 2, 3 \\
+			4 & 4, 5, 6, 7, \\
+			2 & 5, 8 \\
+			4 & 9, 10, 11, 12 \\
+			2 & 9, 13 \\
+			4 & 14, 15 \\
 		\end{tabular}
 		\caption{Window Size vs. Packets Sent}
 		\label{tab:window_packets}
@@ -161,6 +153,26 @@ packet number 14.}
 		\caption{Round-Trip Time (RTT) for Different Packets}
 		\label{tab:rtt_data}
 	\end{table}
+
+	Given that,
+	\[
+		\text{EstimatedRTT}_n = (1 - \alpha) \times \text{EstimatedRTT}_{n-1} + \alpha \times \text{SampleRTT}_n
+	\]
+
+	Setting $\alpha=0.125$
+
+	\[
+		\begin{aligned}
+			\text{EstimatedRTT}_2 &= (1 - 0.125) \times 20 + 0.125 \times 21 = 20.125 \\
+			\text{EstimatedRTT}_5 &= (1 - 0.125) \times 20.125 + 0.125 \times 19 = 19.984 \\
+			\text{EstimatedRTT}_9 &= (1 - 0.125) \times 19.984 + 0.125 \times 24 = 20.483 \\
+			\text{EstimatedRTT}_{13} &= (1 - 0.125) \times 20.483 + 0.125 \times 22 = 20.676 \\
+			\hline
+			\text{EstimatedRTT}_{14} &= (1 - 0.125) \times \text{EstimatedRTT}_{13}  + 0.125 \times 22 = 20.841 \text{ms}
+		\end{aligned}
+	\]
+
+	I use the same sample value because a new sample had not been measured so I assume the previous one is still valid.
 
 \section{Problem 6 - TimeSync Protocol}
 

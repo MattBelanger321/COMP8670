@@ -197,11 +197,10 @@ in your protocol.}
 			% \item New problem introduced that we do not know
 		\end{enumerate}
 
-		However, we are still unsure if the message has not been significantly delayed. The time server can help us with this.
+		However, we are still unsure if the message has been significantly delayed. The time server can help us with this.
 		Assuming the time server has accurate knowledge of the time and that the client can accurately measure time durations, we can craft a response message that includes the accurate time along with the clients message ID so
-		the client knows if the response is fresh. The client can retransmit the request if it does not hear back in 30 seconds with the same ID so the server due to time delays or packet loss,
-		knows the client didn't recieve the response. This ID is also to help the client ignore old request responses. Server should always respond to requests (Client is master, server is slave) so it does not need to 
-		know the clients current time\\
+		the client knows if the response is fresh. The client can retransmit the request if it does not hear back in 30 seconds with the same ID, thus handling time delays and packet loss. This ID is also to help the client ignore old request responses. Server should always respond to requests (Client is master, server is slave) so it does not need to 
+		requests because it will be echod bach in the response.\\
 		The request would be (as json),
 		\begin{minted}{json}
 "request": {

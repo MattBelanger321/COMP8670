@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{amsmath}
-
+\usepackage{minted}
 
 \title{COMP 8670 - Take Home Exam}
 \author{Matthew Belanger}
@@ -178,10 +178,61 @@ packet number 14.}
 
 \subsection{Define the message format for both time synchronization requests and responses
 in your protocol.}
+		Before presenting a message format I want to present some considerations. A naive solution to this problem would be to create a 
+		server that broadcasts the time at regular intervals and if the client sees that it has drifted then it can correct itself. \\
+
+		Problems,
+		\begin{enumerate}
+			\item Does not take into account message transfer delays.
+			\item How does client respond when it does not receive messages?
+			\item What if client receives updates out of order? Which should it trust?
+		\end{enumerate}
+
+		It is better if the client requests the time and provides an incrementing ID of the request.\\
+		In this way,
+		\begin{enumerate}
+			\item Still does not take into account message transfer delays.
+			\item The client can re transmit the request if it does not hear anything back
+			\item Reacts to the most recent ID
+			% \item New problem introduced that we do not know
+		\end{enumerate}
+
+		However, we are still unsure if the message has not been significantly delayed. The time server can help us with this.
+		Assuming the time server has accurate knowledge of the time and that the client can accurately measure time durations, we can craft a response message that includes the accurate time along with the clients message ID so
+		the client knows if the response is fresh. The client can retransmit the request if it does not hear back in 30 seconds with the same ID so the server due to time delays or packet loss,
+		knows the client didn't recieve the response. This ID is also to help the client ignore old request responses. Server should always respond to requests (Client is master, server is slave) so it does not need to 
+		know the clients current time\\
+		The request would be (as json),
+		\begin{minted}{json}
+"request": {
+	"id": "uint"
+}
+		\end{minted}
+
+		\begin{minted}{json}
+"response": {
+	"id": "uint",
+	"current_time": "hh:mm:ss",
+}
+		\end{minted}
 
 \subsection{Sketch a timeline for the operation of your protocol in case of a simple time
 synchronization request and response with no error, and in case there is one error (e.g.
 time drift greater than 30 seconds)}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{no_errors.jpg}
+		\caption{No Errors Diagram}
+		\label{fig:no_errors}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{one_error.jpg}
+		\caption{One Error Diagram}
+		\label{fig:one_error}
+	\end{figure}
 
 \section{Problem 7 - RDT Protocol}
 

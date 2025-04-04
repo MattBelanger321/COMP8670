@@ -120,7 +120,7 @@ Yes
 \subsection{Assume we are using Link-State routing for the network in figure ”Network
 Topology B”. Is it possible to for oscillation problem to occur.}
 
-No
+Yes
 
 \subsection{Assume we are using Distance-Vector routing for the network in figure ”Net-
 work Topology B”.}
@@ -247,14 +247,36 @@ time drift greater than 30 seconds)}
 data and acknowledgment packets exchanged between A and B. When B received the
 message ”CAT” correctly, there was no crash or time failure.}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{question7/7a.jpg}
+	\caption{CAT sent and Recieved}
+	\label{fig:7a}
+\end{figure}
+
+
 \subsection{Draw a time chart for the packets between A and B, showing the number of
 data and acknowledgment packets between A and B. When B only receives the message
 ”CA” and not ”CAT” due to time failure. A and B will fail to detect that the message
 was sent incorrectly and terminate the connection.}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{question7/7b.jpg}
+	\caption{CAT sent and CA Recieved}
+	\label{fig:7b}
+\end{figure}
+
 \subsection{Draw a time chart for the packets between A and B, showing the number of
 data and acknowledgment packets between A and B. B only receives the message ”CATC”
 and not ”CAT” due to time failure. A and B will fail to detect that the message was sent
 incorrectly and terminate the connection.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{question7/7c.jpg}
+	\caption{CAT sent and CATC Recieved}
+	\label{fig:7c}
+\end{figure}
 
 \end{document}

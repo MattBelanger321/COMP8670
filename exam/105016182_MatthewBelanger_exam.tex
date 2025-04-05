@@ -110,22 +110,42 @@ See Python Implementation.
 \subsection{Assume we are using Link-State routing for the network in figure  ”Network
 Topology A”. Is it possible to for oscillation problem to occur.}
 
-Yes
+Any message that will reach router C or E must pass through A. So we only need to consider the sub network formed by A B D.
+
+In the A-B-D triangle network. 
+Initially, router A routes traffic to D via B because the path through L4 and L5 (44) is cheaper than the direct L1 path (50).
+However, if L5 cost increases to 20, the optimal path switches to the direct L1 route (50) instead of L4 and L5 (53).
+The oscillation problem arises when these link cost changes occur more rapidly than link-state advertisements can propagate through the network, 
+causing routers to make forwarding decisions based on inconsistent network views. Therefore the loop.
 
 \subsection{Assume we are using Distance-Vector routing for the network in figure ”Net-
 work Topology A”. Is it possible to for a routing loop problem to occur.}
 
-Yes
+Any message that will reach router C or E must pass through A. So we only need to consider the sub network formed by A B D. A loop can occur because initially, each node computes shortest paths:
+
+\begin{itemize}
+	\item A reaches D via B, cost = 33(L4) + 11(L5) = 44
+	\item B reaches D directly, cost = 11
+	\item D reaches A directly, cost = 50
+\end{itemize}
+
+Now, suppose the L5 link fails. B no longer has a direct route to D but hasn't yet updated its table.
+A still believes D is reachable via B with cost 44. 
+B queries A and receives this route. Since 44 (A's cost to D) + 33 (L4 link) = 77, B updates its table
+to route to D via A at cost 77. Then, A queries B and learns of B's new route (via A at 77), so A updates its own route to D as 33 (L4) + 77 = 110 via B. 
+This back-and-forth continues, with each node incrementally increasing the path cost and pointing to the other as the next hop to D, forming a routing loop between 
+A and B despite the triangular structure.
 
 \subsection{Assume we are using Link-State routing for the network in figure ”Network
 Topology B”. Is it possible to for oscillation problem to occur.}
 
-Yes
+No, in a path graph there is only one route to get to any node. The shortest path algorithm will find this path.
 
 \subsection{Assume we are using Distance-Vector routing for the network in figure ”Net-
-work Topology B”.}
+work Topology B”. Is it possible to for a routing loop problem to occur.}
 
-No
+No, in a path graph there is only one route to get to any node. The shortest path algorithm will find this path.
+
 
 \section{Problem 5 - Congestion Control}
 
